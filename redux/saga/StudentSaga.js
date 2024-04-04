@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { BaseUrl, EndPoints } from "../../utils/Api";
 import axios from "axios";
-import { ADD_NEW_CLASS, ADD_NEW_STUDENT, CHANGE_STUDENT_TABLE, EDIT_CLASS, EDIT_CURRENT_STUDENT } from "../constant/constants";
+import { ADD_NEW_CLASS, ADD_NEW_STUDENT, CHANGE_CLASS_TABLE, CHANGE_STUDENT_TABLE, EDIT_CLASS, EDIT_CURRENT_STUDENT } from "../constant/constants";
 
 
 function* studentsModifier(actions) {
@@ -87,7 +87,7 @@ function* classesModifier(actions) {
 
 function* StudentsSaga() {
     yield takeEvery(CHANGE_STUDENT_TABLE, studentsModifier);
-    yield takeEvery(CHANGE_STUDENT_TABLE, classesModifier)
+    yield takeEvery(CHANGE_CLASS_TABLE, classesModifier)
   }
   
   export default StudentsSaga;

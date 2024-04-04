@@ -1,5 +1,5 @@
 // StudentTable.jsx
-import react, {useState} from 'react';
+import react, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -82,9 +82,6 @@ const StudentTable = () => {
     });
 
     const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
   };
 
   const processRowUpdate = (newRow) => {
@@ -92,7 +89,6 @@ const StudentTable = () => {
     const updatedRow = { ...newRow, isNew: false };
     console.log(updatedRow, newRow) 
     dispatch({type: CHANGE_STUDENT_TABLE, payload: {id: newRow.id, ...updatedRow}})
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
 
@@ -158,6 +154,10 @@ const StudentTable = () => {
         },
       },
   ];
+
+  useEffect(() => {
+    dispatch({type: "clearClasses"})
+  }, [])
 
   return (
     <Box>

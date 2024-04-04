@@ -16,7 +16,7 @@ function App() {
         <h1>
           Classes
         </h1>
-        {/* <ClassTable/> */}
+        <ClassTable/>
       </Box>
     </>
   )

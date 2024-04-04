@@ -1,4 +1,3 @@
-// StudentTable.jsx
 import react, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -21,7 +20,7 @@ import {
   randomArrayItem,
 } from '@mui/x-data-grid-generator';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_NEW_STUDENT, CHANGE_STUDENT_TABLE, DELETE_STUDENT, EDIT_CURRENT_STUDENT, CHANGE_CLASS_TABLE, DELETE_CLASS, ADD_NEW_CLASS } from '../../redux/constant/constants';
+import { CHANGE_CLASS_TABLE, DELETE_CLASS, ADD_NEW_CLASS } from '../../redux/constant/constants';
 
 function EditToolbar(props) {
     const dispatch = useDispatch()
@@ -30,12 +29,12 @@ function EditToolbar(props) {
   
     const handleClick = async () => {
       const id = randomId();
-      console.log(newId)
-      dispatch({type: CHANGE_CLASS_TABLE, payload: {id: newId, isNew:true, name:"", class:"", section:""}})
+      console.log(newId, "from the add handler")
+      dispatch({type: CHANGE_CLASS_TABLE, payload: {id: newId, isNew:true, name:"", description:""}})
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setRowModesModel((oldModel) => ({
         ...oldModel,
-        [newId]: { mode: GridRowModes.Edit, fieldToFocus: 'studentName' },
+        [newId]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
       }));
     };
   
@@ -49,13 +48,7 @@ function EditToolbar(props) {
   }
 
 const ClassTable = () => {
-    const initialStudents = [
-        { id: 1, name: 'John Doe', class: '10th', section: 'A' },
-        { id: 2, name: 'Jane Smith', class: '11th', section: 'B' },
-        // Add more initial student data if needed
-      ];
 
-  const [row, setRows] = useState(initialStudents);
   const [rowModesModel, setRowModesModel] = useState({});
   const dispatch = useDispatch()
 
@@ -108,9 +101,8 @@ const ClassTable = () => {
 
   const columns = [
     {field: 'id', headerName: "ID", width:80, editable:true},
-    { field: 'studentName', headerName: 'Name', width: 180, editable: true },
-    { field: 'class', headerName: 'Class', width: 120, editable: true },
-    { field: 'section', headerName: 'Section', width: 120, editable: true },
+    { field: 'name', headerName: 'Class Name', width: 180, editable: true },
+    { field: 'description', headerName: 'Description', width: 120, editable: true },
     {
         field: 'actions',
         type: 'actions',
@@ -159,9 +151,7 @@ const ClassTable = () => {
       },
   ];
 
-  useEffect(() => {
-    dispatch({type: ADD_NEW_CLASS, payload: { name:"First", description:"hjgjkk"}})
-  }, [])
+
 
   return (
     <>
